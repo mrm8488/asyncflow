@@ -1,5 +1,5 @@
 # asyncflow
-Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with promises under the hood
+Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with generators under the hood
 
 
 ## How to use it:
