@@ -1,4 +1,9 @@
 # asyncflow
+
+[![Build Status](https://travis-ci.org/mrm8448/asyncflow.svg?branch=master)](https://travis-ci.org/mrm8448/asyncflow)
+
+[![Coverage Status](https://coveralls.io/repos/github/mrm8448/asyncflow/badge.svg?branch=master)](https://coveralls.io/github/mrm8448/asyncflow?branch=master)
+
 Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with generators under the hood
 
 
