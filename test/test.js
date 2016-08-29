@@ -2,57 +2,54 @@
 
 const expect = require('chai').expect;
 const asyncFlow = require('../index');
+const fs = require('fs');
 
 describe('#asyncFlow => manage asyncFlow with direct style (without callbacks)', () => {
 
     it('should execute async operations in the written order', done => {
 
-        let date;
-        let date2;
-        let date3;
         
         asyncFlow(function* (callback) {
 
-            //Async operation 1
-            yield setTimeout(() => {
 
-                date = new Date();
+            yield fs.writeFile('./test/testFile', 'Hey there!', callback);
 
-            }, 100, callback);
+            const data = yield fs.readFile('./test/testFile', 'utf8', callback);
 
-            expect(date).to.not.be.undefined;
-            expect(date2).to.be.undefined;
-            expect(date3).to.be.undefined;
+            expect(data).to.be.eql('Hey there!');
 
-            //Async operation 2
-            yield setTimeout(() => {
+            yield fs.unlink('./test/testFile', callback);
 
-                date2 = new Date();
+            done();
+        
+        });
 
-            }, 50, callback);
+    });
 
-            expect(date).to.not.be.undefined;
-            expect(date2).to.not.be.undefined;
-            expect(date3).to.be.undefined;
 
-            //Async operation 3
-            yield setTimeout(() => {
+     it('should execute async operations in the written order (error in flow)', done => {
 
-                date3 = new Date();
 
-            }, 50, callback);
+        asyncFlow(function* (callback) {
 
-            expect(date).to.not.be.undefined;
-            expect(date2).to.not.be.undefined;
-            expect(date3).to.not.be.undefined;
+            try {
 
-            expect(date1).to.be.lt(date2);
-            expect(date2).to.be.lt(date3);
-            expect(date3).to.be.let(new Date());
+                yield fs.writeFile('./test/testFile', 'Hey there!', callback);
+
+                yield fs.unlink('./test/testFile', callback);    
+
+                const data =  yield fs.readFile('./test/testFile', 'utf8', callback);
+
+            } catch (err) {
+
+                expect(err).to.not.be.undefined;
+                expect(err.code).to.be.eql('ENOENT');
+
+                done();
+            
+            }
 
         });
 
-        done();
-
-    });
+     });
 });    
