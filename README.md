@@ -1,10 +1,12 @@
 # asyncflow
 
 [![Build Status](https://travis-ci.org/mrm8448/asyncflow.svg?branch=master)](https://travis-ci.org/mrm8448/asyncflow)
-
 [![Coverage Status](https://coveralls.io/repos/github/mrm8448/asyncflow/badge.svg?branch=master)](https://coveralls.io/github/mrm8448/asyncflow?branch=master)
 
-Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with generators under the hood
+Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with generators under the hood.
+
+## How to install:
+`npm i asyncflow-gen`
 
 
 ## How to use it:
@@ -25,6 +27,40 @@ asyncFlow(function* (callback) {
             
   console.log('That is all, folks! Where are the callbacks??');
   
+});
+
+```
+
+## What we are avoiding:
+
+```js
+
+fs.writeFile('./test/testFile', 'Hey there!', err => {
+
+  if (err) {
+    handleErrorFunction(err);
+  }
+  
+  fs.readFile('./test/testFile', 'utf8', (err, data) => {
+  
+    if (err) {
+      handleErrorFunction(err);
+    }
+    
+    console.log('data is: ', data);
+    
+    fs.unlink('./test/testFile', err => {
+    
+      if (err) {
+        handleErrorFunction(err);
+      }
+      
+      console.log('That is all, folks! Yes, I do not like this callback cascade.');
+      
+    });
+  
+  });
+
 });
 
 ```
