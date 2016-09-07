@@ -1,6 +1,6 @@
 {
   "name": "asyncflow-gen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Asynchronous control flow with generators",
   "main": "index.js",
   "scripts": {
