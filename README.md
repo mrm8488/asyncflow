@@ -7,6 +7,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/mrm8488/asyncflow/badge.svg)](https://snyk.io/test/github/mrm8488/asyncflow)
 
 Manage IO operations in Node.js using direct style (sync code like) without callbacks. It works with generators under the hood.
+
 Implementation based on the proposed solution in the great book [Node.js Design Patterns](https://www.nodejsdesignpatterns.com/)
 
 ## How to install:
